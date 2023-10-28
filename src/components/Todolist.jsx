@@ -254,7 +254,7 @@ function Todo({ todo, removeTodo, toggleCompleted }) {
         className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded ml-2"
         style={{ boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)" }}
       >
-        {todo.completed ? "<|" : "O"}
+        {todo.completed ? "<" : "O"}
       </button>
     </div>
   );
