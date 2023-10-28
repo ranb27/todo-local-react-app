@@ -1,5 +1,6 @@
-# React + Vite
+# React + Vite + Tailwind
 
+Site URL : https://todolist-sinb27.netlify.app/
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
