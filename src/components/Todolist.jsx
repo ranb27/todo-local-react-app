@@ -96,6 +96,7 @@ function TodoList() {
 
   function toggleDarkMode() {
     setIsDarkMode((prevIsDarkMode) => !prevIsDarkMode);
+
     const userMode = localStorage.getItem("userMode");
 
     if (userMode === "dark") {
@@ -118,9 +119,28 @@ function TodoList() {
 
   // When the application loads, check for user's choice
   useEffect(() => {
+    // Get the user's preferred mode from local storage
     const userMode = localStorage.getItem("userMode");
+
+    // Check if it is 'dark' or 'light' mode, and update the UI accordingly
     if (userMode === "dark") {
-      toggleDarkMode();
+      // Set isDarkMode to true if it's 'dark' mode
+      setIsDarkMode(true);
+
+      // Update the UI for dark mode
+      document.body.style.setProperty("--background-color-light", "#333333");
+      document.body.style.setProperty("--background-color-dark", "#ffffff");
+      document.body.style.setProperty("--text-color-light", "#ffffff");
+      document.body.style.setProperty("--text-color-dark", "#333333");
+    } else {
+      // Set isDarkMode to false if it's 'light' mode
+      setIsDarkMode(false);
+
+      // Update the UI for light mode
+      document.body.style.setProperty("--background-color-light", "#ffffff");
+      document.body.style.setProperty("--background-color-dark", "#333333");
+      document.body.style.setProperty("--text-color-light", "#333333");
+      document.body.style.setProperty("--text-color-dark", "#ffffff");
     }
   }, []);
 
@@ -142,67 +162,67 @@ function TodoList() {
 
   return (
     <React.Fragment>
-      <button
-        className="btn btn-neutral w-50 text-xl mt-5"
-        onClick={toggleDarkMode}
-        style={{
-          backgroundColor: "var(--background-color-light)",
-          color: "var(--text-color-light)",
-          position: "absolute",
-          right: 0,
-          marginRight: "1rem",
-          boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
-        }}
-      >
-        <span>
-          <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
-        </span>
-      </button>
-      <div className="max-w-lg mx-auto pt-10">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Todo List</h1>
-        </div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const todoText = e.target.elements.todo.value;
-            addTodo(todoText);
-            e.target.reset();
+      <div className="mx-4">
+        <button
+          className="btn btn-neutral w-50 text-xl mt-5"
+          onClick={toggleDarkMode}
+          style={{
+            backgroundColor: "var(--background-color-light)",
+            color: "var(--text-color-light)",
+            position: "absolute",
+            right: 0,
+            marginRight: "1rem",
+            boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
           }}
         >
-          <div className="flex mb-4">
-            <input
-              type="text"
-              name="todo"
-              placeholder="Add some todo here..."
-              className="flex-1 border rounded py-2 px-4 mr-2 outline-none focus:shadow-outline"
-              style={{
-                backgroundColor: "var(--background-color-light)",
-                color: "var(--text-color-light)",
-                boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
-                outline: "none",
-                border: "none",
-              }}
-            />
-            <button
-              type="submit"
-              className="btn btn-ghost w-24 text-xl"
-              style={{
-                backgroundColor: "var(--background-color-light)",
-                color: "var(--text-color-light)",
-                boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
-              }}
-            >
-              Add
-            </button>
+          <span>
+            <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
+          </span>
+        </button>
+        <div className="max-w-lg mx-auto pt-10">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold mb-4">Todo List</h1>
           </div>
-        </form>
-        {renderTodos()}
-        <footer className="fixed bottom-0 w-full flex justify-center mb-5 max-w-lg mx-auto">
-          <p className="text-sky-500">
-            Local Storage To-do list via React-Vite-Tailwind // by sinb27
-          </p>
-        </footer>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const todoText = e.target.elements.todo.value;
+              addTodo(todoText);
+              e.target.reset();
+            }}
+          >
+            <div className="flex mb-4">
+              <input
+                type="text"
+                name="todo"
+                placeholder="Add some todo here..."
+                className="flex-1 border rounded py-2 px-4 mr-2 outline-none focus:shadow-outline"
+                style={{
+                  backgroundColor: "var(--background-color-light)",
+                  color: "var(--text-color-light)",
+                  boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+                  outline: "none",
+                  border: "none",
+                }}
+              />
+              <button
+                type="submit"
+                className="btn btn-ghost w-24 text-xl"
+                style={{
+                  backgroundColor: "var(--background-color-light)",
+                  color: "var(--text-color-light)",
+                  boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+                }}
+              >
+                Add
+              </button>
+            </div>
+          </form>
+          {renderTodos()}
+          <footer className="fixed bottom-0 w-full flex justify-center mb-5 max-w-lg mx-auto">
+            <p className="text-sky-500">To-do list via React // by sinb27</p>
+          </footer>
+        </div>
       </div>
     </React.Fragment>
   );
