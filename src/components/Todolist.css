@@ -1,3 +1,27 @@
 body {
   min-height: 100vh;
 }
+
+.completed-button {
+  background-color: orange; /* Change to your desired completed color */
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  margin: 0 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  width: 2rem;
+}
+
+.uncompleted-button {
+  background-color: green; /* Change to your desired uncompleted color */
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  margin: 0 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  width: 2rem;
+}

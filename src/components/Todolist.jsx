@@ -181,7 +181,7 @@ function TodoList() {
         </button>
         <div className="max-w-lg mx-auto pt-10">
           <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">Todo List</h1>
+            <h1 className="text-3xl font-extrabold mb-4">Todo List</h1>
           </div>
           <form
             onSubmit={(e) => {
@@ -196,7 +196,7 @@ function TodoList() {
                 type="text"
                 name="todo"
                 placeholder="Add some todo here..."
-                className="flex-1 border rounded py-2 px-4 mr-2 outline-none focus:shadow-outline"
+                className="flex-1 border rounded py-2 px-4 mr-2 outline-none focus:shadow-outline "
                 style={{
                   backgroundColor: "var(--background-color-light)",
                   color: "var(--text-color-light)",
@@ -219,7 +219,7 @@ function TodoList() {
             </div>
           </form>
           {renderTodos()}
-          <footer className="fixed bottom-0 w-full flex justify-center mb-5 max-w-lg mx-auto">
+          <footer className="fixed bottom-0 w-full flex justify-center pb-5 max-w-lg mx-auto">
             <p className="text-sky-500">To-do list via React // by sinb27</p>
           </footer>
         </div>
@@ -251,10 +251,9 @@ function Todo({ todo, removeTodo, toggleCompleted }) {
       </button>
       <button
         onClick={() => toggleCompleted(todo)}
-        className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded ml-2"
-        style={{ boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)" }}
+        className={todo.completed ? "completed-button" : "uncompleted-button"}
       >
-        {todo.completed ? "<" : "O"}
+        {todo.completed ? "<-" : "O"}
       </button>
     </div>
   );
