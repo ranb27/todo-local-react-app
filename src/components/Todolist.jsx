@@ -159,7 +159,7 @@ function TodoList() {
     <React.Fragment>
       <div className="mx-auto">
         <button
-          className="btn btn-neutral text-xl mt-4 animate-ltr"
+          className="btn btn-neutral text-xl z-50 rounded-xl"
           onClick={toggleDarkMode}
           style={{
             backgroundColor: "var(--background-color-light)",
@@ -174,13 +174,14 @@ function TodoList() {
             <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
           </span>
         </button>
-        <div className="max-w-lg mx-auto pt-10">
+        <div className="mx-auto my-4 w-90">
           <div className="text-center">
             <h1 className="text-3xl font-bold mb-4 drop-shadow-lg animate-fade">
               Todo List
             </h1>
           </div>
           <form
+            className="grid gap-4"
             onSubmit={(e) => {
               e.preventDefault();
               const todoText = e.target.elements.todo.value;
@@ -188,12 +189,12 @@ function TodoList() {
               e.target.reset();
             }}
           >
-            <div className="flex mb-4">
+            <div className="mb-4 animate-fade flex gap-2 mt-4">
               <input
                 type="text"
                 name="todo"
                 placeholder="Add some todo here..."
-                className="flex-1 border font-semibold rounded-2xl py-2 px-4 outline-none focus:shadow-outline text-xl mx-1 animate-ltr"
+                className="border font-semibold rounded-2xl py-2 px-4 outline-none focus:shadow-outline text-xl w-full"
                 style={{
                   backgroundColor: "var(--background-color-light)",
                   color: "var(--text-color-light)",
@@ -205,7 +206,7 @@ function TodoList() {
 
               <button
                 type="submit"
-                className="btn btn-ghost w-24 text-lg mx-1 rounded-2xl font-bold animate-rtl"
+                className="btn btn-ghost text-lg rounded-2xl font-bold w-auto"
                 style={{
                   backgroundColor: "var(--background-color-light)",
                   color: "var(--text-color-light)",
@@ -217,13 +218,14 @@ function TodoList() {
             </div>
           </form>
           {renderTodos()}
-          <div className="fixed bottom-0 w-full flex justify-center pb-5 max-w-lg mx-auto">
-            <p className="text-sky-500 animate-delay font-semibold drop-shadow-md">
-              To-do via React + Tailwind // by sinb27
-            </p>
-          </div>
         </div>
       </div>
+      <footer className="fixed bottom-0 left-0 right-0 flex justify-center items-center mb-2">
+        <p className="text-sky-500 animate-delay font-semibold drop-shadow-md whitespace-nowrap">
+          To-do via React + Tailwind{" "}
+          <span className="text-amber-500">// sinb27</span>
+        </p>
+      </footer>
     </React.Fragment>
   );
 }
@@ -234,7 +236,7 @@ function Todo({ todo, removeTodo, toggleCompleted }) {
   const textClass = todo.text.length > 30 ? "break-all" : "";
 
   return (
-    <div className="flex items-center mb-4 ">
+    <div className="flex items-center mb-4 mx-1 animate-delay">
       <div
         className={`flex-1 text-xl drop-shadow-md font-semibold ${textClass} ${
           todo.completed ? "line-through text-yellow-500" : ""
