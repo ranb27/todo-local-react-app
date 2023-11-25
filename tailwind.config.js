@@ -10,10 +10,10 @@ export default {
         90: "90vw",
       },
       animation: {
-        fade: "fadeIn 0.5s ease-in-out",
-        delay: "delay 0.75s ease-in-out",
-        rtl: "rtl 0.5s ease-in-out",
-        ltr: "ltr 0.5s ease-in-out",
+        fade: "fadeIn 1s ease-in-out",
+        delay: "delay 1.2s ease-in-out",
+        rtl: "rtl 1s ease-in-out",
+        ltr: "ltr 1s ease-in-out",
       },
 
       // that is actual animation

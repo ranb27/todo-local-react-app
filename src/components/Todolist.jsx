@@ -159,7 +159,7 @@ function TodoList() {
     <React.Fragment>
       <div className="mx-auto">
         <button
-          className="btn btn-neutral text-xl mt-4 rounded-full"
+          className="btn btn-neutral text-xl mt-4 animate-ltr"
           onClick={toggleDarkMode}
           style={{
             backgroundColor: "var(--background-color-light)",
@@ -176,7 +176,7 @@ function TodoList() {
         </button>
         <div className="max-w-lg mx-auto pt-10">
           <div className="text-center">
-            <h1 className="text-3xl font-extrabold mb-4 drop-shadow-lg">
+            <h1 className="text-3xl font-bold mb-4 drop-shadow-lg animate-fade">
               Todo List
             </h1>
           </div>
@@ -193,7 +193,7 @@ function TodoList() {
                 type="text"
                 name="todo"
                 placeholder="Add some todo here..."
-                className="flex-1 border rounded-2xl py-2 px-4 outline-none focus:shadow-outline w-screen text-xl mx-1"
+                className="flex-1 border font-semibold rounded-2xl py-2 px-4 outline-none focus:shadow-outline text-xl mx-1 animate-ltr"
                 style={{
                   backgroundColor: "var(--background-color-light)",
                   color: "var(--text-color-light)",
@@ -205,20 +205,20 @@ function TodoList() {
 
               <button
                 type="submit"
-                className="btn btn-ghost w-24 text-lg mx-1 rounded-2xl"
+                className="btn btn-ghost w-24 text-lg mx-1 rounded-2xl font-bold animate-rtl"
                 style={{
                   backgroundColor: "var(--background-color-light)",
                   color: "var(--text-color-light)",
                   boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
                 }}
               >
-                + Add
+                Add
               </button>
             </div>
           </form>
           {renderTodos()}
           <div className="fixed bottom-0 w-full flex justify-center pb-5 max-w-lg mx-auto">
-            <p className="text-sky-500">
+            <p className="text-sky-500 animate-delay font-semibold drop-shadow-md">
               To-do via React + Tailwind // by sinb27
             </p>
           </div>
@@ -236,7 +236,7 @@ function Todo({ todo, removeTodo, toggleCompleted }) {
   return (
     <div className="flex items-center mb-4 ">
       <div
-        className={`flex-1 text-xl drop-shadow-md ${textClass} ${
+        className={`flex-1 text-xl drop-shadow-md font-semibold ${textClass} ${
           todo.completed ? "line-through text-yellow-500" : ""
         }`}
       >
