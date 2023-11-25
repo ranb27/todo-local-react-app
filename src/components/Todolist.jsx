@@ -23,6 +23,8 @@ function TodoList() {
         icon: "error",
         title: "Oops...",
         text: "Please enter some todo text!",
+        timer: 1000,
+        showConfirmButton: false,
       });
       return;
     } else if (todos.some((todo) => todo.text === todoText)) {
@@ -30,6 +32,8 @@ function TodoList() {
         icon: "error",
         title: "Oops...",
         text: "You already have this todo!",
+        timer: 1000,
+        showConfirmButton: false,
       });
       return;
     } else {
@@ -37,6 +41,8 @@ function TodoList() {
         icon: "success",
         title: "Nice!",
         text: "You added a new todo!",
+        timer: 1000,
+        showConfirmButton: false,
       });
     }
 
@@ -62,36 +68,25 @@ function TodoList() {
         const updatedTodos = todos.filter((t) => t.id !== todo.id);
         setTodos(updatedTodos);
 
-        Swal.fire("Removed!", "Your todo has been removed.", "success");
+        Swal.fire({
+          icon: "success",
+          title: "Removed!",
+          text: "Your todo has been removed.",
+          timer: 1000,
+          showConfirmButton: false,
+        });
       }
     });
   }
 
   function toggleCompleted(todo) {
-    Swal.fire({
-      title: "Are you sure?",
-      text: `Do you want to ${todo.completed ? "undo" : "complete"} this todo?`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: `Yes, ${todo.completed ? "undo" : "complete"} it!`,
-      cancelButtonText: "No, keep it",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const updatedTodos = todos.map((t) => {
-          if (t.id === todo.id) {
-            return { ...t, completed: !t.completed };
-          }
-          return t;
-        });
-        setTodos(updatedTodos);
-
-        Swal.fire(
-          "Completed!",
-          `Your todo has been ${todo.completed ? "undone" : "completed"}.`,
-          "success"
-        );
+    const updatedTodos = todos.map((t) => {
+      if (t.id === todo.id) {
+        return { ...t, completed: !t.completed };
       }
+      return t;
     });
+    setTodos(updatedTodos);
   }
 
   function toggleDarkMode() {
@@ -162,9 +157,9 @@ function TodoList() {
 
   return (
     <React.Fragment>
-      <div className="mx-4">
+      <div className="mx-auto">
         <button
-          className="btn btn-neutral w-50 text-xl mt-5"
+          className="btn btn-neutral text-xl mt-4 rounded-full"
           onClick={toggleDarkMode}
           style={{
             backgroundColor: "var(--background-color-light)",
@@ -181,7 +176,9 @@ function TodoList() {
         </button>
         <div className="max-w-lg mx-auto pt-10">
           <div className="text-center">
-            <h1 className="text-3xl font-extrabold mb-4">Todo List</h1>
+            <h1 className="text-3xl font-extrabold mb-4 drop-shadow-lg">
+              Todo List
+            </h1>
           </div>
           <form
             onSubmit={(e) => {
@@ -196,7 +193,7 @@ function TodoList() {
                 type="text"
                 name="todo"
                 placeholder="Add some todo here..."
-                className="flex-1 border rounded py-2 px-4 mr-2 outline-none focus:shadow-outline "
+                className="flex-1 border rounded-2xl py-2 px-4 outline-none focus:shadow-outline w-screen text-xl mx-1"
                 style={{
                   backgroundColor: "var(--background-color-light)",
                   color: "var(--text-color-light)",
@@ -205,23 +202,26 @@ function TodoList() {
                   border: "none",
                 }}
               />
+
               <button
                 type="submit"
-                className="btn btn-ghost w-24 text-xl"
+                className="btn btn-ghost w-24 text-lg mx-1 rounded-2xl"
                 style={{
                   backgroundColor: "var(--background-color-light)",
                   color: "var(--text-color-light)",
                   boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
                 }}
               >
-                Add
+                + Add
               </button>
             </div>
           </form>
           {renderTodos()}
-          <footer className="fixed bottom-0 w-full flex justify-center pb-5 max-w-lg mx-auto">
-            <p className="text-sky-500">To-do list via React // by sinb27</p>
-          </footer>
+          <div className="fixed bottom-0 w-full flex justify-center pb-5 max-w-lg mx-auto">
+            <p className="text-sky-500">
+              To-do via React + Tailwind // by sinb27
+            </p>
+          </div>
         </div>
       </div>
     </React.Fragment>
@@ -231,29 +231,30 @@ function TodoList() {
 import PropTypes from "prop-types";
 
 function Todo({ todo, removeTodo, toggleCompleted }) {
-  const textClass = todo.text.length > 50 ? "break-all" : "";
+  const textClass = todo.text.length > 30 ? "break-all" : "";
 
   return (
     <div className="flex items-center mb-4 ">
       <div
-        className={`flex-1 text-xl ${textClass} ${
+        className={`flex-1 text-xl drop-shadow-md ${textClass} ${
           todo.completed ? "line-through text-yellow-500" : ""
         }`}
       >
         {todo.text}
       </div>
-      <button
-        onClick={() => removeTodo(todo)}
-        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-5"
-        style={{ boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)" }}
-      >
-        X
-      </button>
+
       <button
         onClick={() => toggleCompleted(todo)}
         className={todo.completed ? "completed-button" : "uncompleted-button"}
       >
         {todo.completed ? "<-" : "O"}
+      </button>
+      <button
+        onClick={() => removeTodo(todo)}
+        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded w-8"
+        style={{ boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)" }}
+      >
+        X
       </button>
     </div>
   );
