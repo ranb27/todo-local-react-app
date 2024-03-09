@@ -223,7 +223,7 @@ function TodoList() {
       <footer className="fixed bottom-0 left-0 right-0 flex justify-center items-center mb-2">
         <p className="text-sky-500 animate-delay font-semibold drop-shadow-md whitespace-nowrap">
           To-do via React + Tailwind{" "}
-          <span className="text-amber-500">// sinb27</span>
+          <span className="text-amber-500">// ranb27</span>
         </p>
       </footer>
     </React.Fragment>
