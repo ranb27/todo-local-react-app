@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import "./TodoList.css";
+// import "./TodoList.css";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 
-function TodoList() {
+function TodoList({ useSnackbar }) {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   // Initialize the state with data from localStorage or an empty array
   const [todos, setTodos] = useState(() => {
     const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
@@ -19,30 +20,18 @@ function TodoList() {
 
   function addTodo(todoText) {
     if (!todoText) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Please enter some todo text!",
-        timer: 1000,
-        showConfirmButton: false,
+      enqueueSnackbar("You must enter a todo!", {
+        variant: "error",
       });
       return;
     } else if (todos.some((todo) => todo.text === todoText)) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "You already have this todo!",
-        timer: 1000,
-        showConfirmButton: false,
+      enqueueSnackbar("You already have that todo!", {
+        variant: "warning",
       });
       return;
     } else {
-      Swal.fire({
-        icon: "success",
-        title: "Nice!",
-        text: "You added a new todo!",
-        timer: 1000,
-        showConfirmButton: false,
+      enqueueSnackbar("Todo added!", {
+        variant: "success",
       });
     }
 
@@ -68,12 +57,8 @@ function TodoList() {
         const updatedTodos = todos.filter((t) => t.id !== todo.id);
         setTodos(updatedTodos);
 
-        Swal.fire({
-          icon: "success",
-          title: "Removed!",
-          text: "Your todo has been removed.",
-          timer: 1000,
-          showConfirmButton: false,
+        enqueueSnackbar("Todo removed!", {
+          variant: "success",
         });
       }
     });
@@ -174,7 +159,7 @@ function TodoList() {
             <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
           </span>
         </button>
-        <div className="mx-auto my-4 w-90">
+        <div className="mx-auto my-4">
           <div className="text-center">
             <h1 className="text-3xl font-bold mb-4 drop-shadow-lg animate-fade">
               Todo List
@@ -189,7 +174,7 @@ function TodoList() {
               e.target.reset();
             }}
           >
-            <div className="mb-4 animate-fade flex gap-2 mt-4">
+            <div className="mb-4 animate-fade grid grid-cols-1 sm:flex gap-2 m-4">
               <input
                 type="text"
                 name="todo"
@@ -221,8 +206,8 @@ function TodoList() {
         </div>
       </div>
       <footer className="fixed bottom-0 left-0 right-0 flex justify-center items-center mb-2">
-        <p className="text-sky-500 animate-delay font-semibold drop-shadow-md whitespace-nowrap">
-          To-do via React + Tailwind{" "}
+        <p className="text-sky-500 animate-delay font-semibold drop-shadow-md whitespace-nowrap sm:block hidden">
+          To-do-Local via React + Tailwind{" "}
           <span className="text-amber-500">// ranb27</span>
         </p>
       </footer>
@@ -236,7 +221,7 @@ function Todo({ todo, removeTodo, toggleCompleted }) {
   const textClass = todo.text.length > 30 ? "break-all" : "";
 
   return (
-    <div className="flex items-center mb-4 mx-1 animate-delay">
+    <div className="flex items-center mb-4 mx-1 animate-delay gap-2">
       <div
         className={`flex-1 text-xl drop-shadow-md font-semibold ${textClass} ${
           todo.completed ? "line-through text-yellow-500" : ""
@@ -247,13 +232,15 @@ function Todo({ todo, removeTodo, toggleCompleted }) {
 
       <button
         onClick={() => toggleCompleted(todo)}
-        className={todo.completed ? "completed-button" : "uncompleted-button"}
+        className={`btn-sm w-8 ${
+          todo.completed ? "btn btn-warning" : "btn btn-info"
+        }`}
       >
-        {todo.completed ? "<-" : "O"}
+        {todo.completed ? "<" : "O"}
       </button>
       <button
         onClick={() => removeTodo(todo)}
-        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded w-8"
+        className="btn btn-error btn-sm w-8"
         style={{ boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)" }}
       >
         X
